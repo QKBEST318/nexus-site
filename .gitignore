@@ -1,0 +1,39 @@
+# 依赖与构建产物
+node_modules/
+dist/
+
+# 测试临时文件（打包出来的测试包、无头浏览器 profile）
+tests/.tmp/
+tests/*.log
+*.log
+
+# 环境变量与密钥（绝不上传）
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.jks
+.ssh/
+.npmrc
+.pypirc
+.git-credentials
+credentials.json
+secrets.json
+service-account*.json
+wrangler.toml
+.dev.vars
+
+# 下载到本地的便携版 Git 与压缩包（脚本保留，二进制不进仓库）
+tools/portable-git/
+tools/*.zip
+tools/*.log
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

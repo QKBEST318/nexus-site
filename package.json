@@ -1,0 +1,13 @@
+{
+  "name": "nexus-qkbest",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "NEXUS — QKBEST personal tech space (static React + TypeScript site)",
+  "scripts": {
+    "dev": "node tools/build.mjs --watch --serve",
+    "build": "node tools/build.mjs",
+    "preview": "node tools/serve.mjs",
+    "test": "node tests/run.mjs"
+  }
+}
