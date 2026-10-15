@@ -56,7 +56,7 @@ export const profile: Profile = {
   identity: l10n("中国大学生", "University Student in China"),
   personality: l10n("内敛", "Introverted"),
   tagline: l10n(
-    "在安静的地方，把热爱做成作品。",
+    "咕咕嘎嘎",
     "Building quietly, shipping what I love.",
   ),
   bio: [
@@ -65,8 +65,8 @@ export const profile: Profile = {
       "Hi, I'm QKBEST, a university student in China. I'm introverted — I'd rather observe first, then build, and I like taking one thing all the way through on my own.",
     ),
     l10n(
-      "我的兴趣集中在四个方向：无畏契约（VALORANT）、人工智能、篮球和电影。这个站点把四者放在一起：",
-      "Four things keep my attention: VALORANT, artificial intelligence, basketball and film. This site puts them in one place:",
+      "我的兴趣集中在四个方向：玩游戏、人工智能、打篮球和看电影。这个站点把四者放在一起：",
+      "Four things keep my attention: game, artificial intelligence, basketball and film. This site puts them in one place:",
     ),
     l10n(
       "NEXUS 是我自己写的第一块「网络空间」——一个完全运行在浏览器里的个人主页，没有后端、没有账号、没有追踪，所有数据只留在这台设备上。",
@@ -145,10 +145,10 @@ export interface SocialPlaceholder {
 }
 
 export const socials: SocialPlaceholder[] = [
-  { id: "github", kind: "github", label: l10n("GitHub", "GitHub"), url: null, note: l10n("代码仓库", "Repositories") },
+  { id: "github", kind: "github", label: l10n("GitHub", "GitHub"), url: "https://github.com/QKBEST318", note: l10n("代码仓库", "Repositories") },
   { id: "bilibili", kind: "bilibili", label: l10n("哔哩哔哩", "Bilibili"), url: null, note: l10n("视频/分享", "Videos & notes") },
-  { id: "email", kind: "email", label: l10n("邮箱", "Email"), url: null, note: l10n("联系我", "Reach me") },
-  { id: "website", kind: "website", label: l10n("其他主页", "Another site"), url: null, note: l10n("个人博客/主页", "Blog or homepage") },
+  { id: "email", kind: "email", label: l10n("邮箱", "Email"), url: 2217438328@qq.com, note: l10n("联系我", "Reach me") },
+  { id: "website", kind: "website", label: l10n("wechat", "Another site"), url: 15248143744, note: l10n("个人/主页", "Blog or homepage") },
 ];
 
 /* ==========================================================================
@@ -202,10 +202,10 @@ export const projects: Project[] = [
   },
   {
     id: "sample-3",
-    title: l10n("[示例] Prompt 笔记集", "[Sample] Prompt notebook"),
+    title: l10n("deepseek harness", "[Sample] Prompt notebook"),
     summary: l10n(
-      "示例条目：用来演示 AI 分类的筛选效果。",
-      "A sample entry used to demo the AI category filter.",
+      "测试大模型deepseek v4.1flash产物",
+      "A sample entry used to demo the AI filter.",
     ),
     tags: ["LLM", "Notes"],
     category: "ai",
@@ -215,9 +215,9 @@ export const projects: Project[] = [
   },
   {
     id: "sample-4",
-    title: l10n("[示例] 投篮热区统计", "[Sample] Shot chart"),
+    title: l10n("agent制作前端", "[Sample] Shot chart"),
     summary: l10n(
-      "示例条目：演示数据可视化类项目卡片的样子。",
+      "API调用大模型，ChatGpt指令在dsh上完成简单web制作",
       "A sample entry showing what a data-visualisation card looks like.",
     ),
     tags: ["Chart", "Data"],
