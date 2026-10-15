@@ -107,9 +107,26 @@ async function buildWithApi() {
 
 /* ---------------------------------------------------------------- 输出 --- */
 
+/**
+ * 把 index.html 变成 dist/index.html：
+ *  - 补上样式表 <link>（CSS 是从 src/main.tsx 里 import 进来的，esbuild 会把它抽成
+ *    独立的 assets/app.css；HTML 若不引用它，页面就只有浏览器默认样式 —— 曾经的真实 bug）
+ *  - 把开发入口 /src/main.tsx 换成打包产物 ./assets/app.js
+ */
 function writeHtml() {
   const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
-  fs.writeFileSync(path.join(dist, "index.html"), html.replace("/src/main.tsx", "./assets/app.js"));
+  const hasCss = fs.existsSync(path.join(dist, "assets", "app.css"));
+
+  let out = html.replace("/src/main.tsx", "./assets/app.js");
+
+  if (hasCss && !/rel="stylesheet"/.test(out)) {
+    out = out.replace(/([ \t]*)<title>/i, '$1<link rel="stylesheet" href="./assets/app.css" />\n$1<title>');
+  }
+  if (!/rel="stylesheet"/.test(out)) {
+    console.error("警告：dist 中没有 assets/app.css，生成的 HTML 将缺少样式表引用");
+  }
+
+  fs.writeFileSync(path.join(dist, "index.html"), out);
 }
 
 function sizes() {

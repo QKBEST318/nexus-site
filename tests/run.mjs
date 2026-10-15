@@ -85,9 +85,16 @@ for (const ref of [...new Set(refs)]) {
 
 // 构建产物必须自洽：HTML 引用 assets/app.js，且它不是开发入口
 const html = fs.readFileSync(path.join(dist, "index.html"), "utf8");
+const cssPath = path.join(dist, "assets", "app.css");
 const checks = [
   ["dist/index.html references bundled app.js", html.includes("./assets/app.js")],
   ["dist/index.html no longer references /src/main.tsx", !html.includes("/src/main.tsx")],
+  // 回归守卫：CSS 是由 src/main.tsx 里 import 进来的，esbuild 会把它抽成独立文件。
+  // 一旦 HTML 漏掉这个 <link>，整站就会退化成"浏览器默认样式"（曾经真实发生过）。
+  ["dist/assets/app.css is emitted", fs.existsSync(cssPath)],
+  ["dist/index.html links the stylesheet", /<link[^>]+rel="stylesheet"[^>]+href="\.\/assets\/app\.css"/.test(html)],
+  ["linked stylesheet actually resolves (no 404)", fs.existsSync(path.join(dist, "assets", "app.css"))],
+  ["stylesheet carries the design tokens", fs.existsSync(cssPath) && fs.readFileSync(cssPath, "utf8").includes("--bg:")],
   ["dist/index.html declares zh-CN + dark default", html.includes('lang="zh-CN"') && html.includes('data-theme="dark"')],
   ["hashed asset names stay stable for entry files", fs.existsSync(path.join(dist, "assets", "app.js")) && fs.existsSync(path.join(dist, "assets", "app.css"))],
   ["bundle contains React runtime", fs.readFileSync(path.join(dist, "assets", "app.js"), "utf8").includes("react")],
