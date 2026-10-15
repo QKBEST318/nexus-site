@@ -24,12 +24,22 @@ jobs:
         with:
           node-version: 22
 
-      # 依赖已在仓库中锁定来源；esbuild 由 action 自行安装
-      - name: Install esbuild
-        run: npm install --no-save esbuild@0.25.12
+      # 依赖来自 package.json：react / react-dom 在 dependencies，esbuild 在 devDependencies。
+      # 这一步必须包含 @esbuild/linux-x64（esbuild 在 Linux 上的平台二进制），
+      # 构建脚本会自动定位它；若有 package-lock.json 则用 npm ci 保证可复现。
+      - name: Install dependencies
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
 
       - name: Build
-        run: node tools/build.mjs
+        run: npm run build
+
+      - name: Show build output
+        run: ls -la dist && ls -la dist/assets
 
       - uses: actions/configure-pages@v5
 
